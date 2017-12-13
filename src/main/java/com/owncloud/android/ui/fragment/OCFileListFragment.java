@@ -968,13 +968,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     return true;
                 }
                 case R.id.action_set_as_wallpaper: {
-                    if (singleFile.isDown()) {
                         mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile, getView());
-                    } else {
-                        Log_OC.d(TAG, singleFile.getRemotePath() + " : File must be downloaded");
-                        ((FileDisplayActivity) mContainerActivity).startDownloadForSending(singleFile, DOWNLOAD_SET_AS,
-                                "", "");
-                    }
                     return true;
                 }
             }
