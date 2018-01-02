@@ -16,7 +16,8 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <!--
       standard menu
       all items in this group MUST have orderInCategory="0" set
@@ -56,11 +57,6 @@
             android:icon="@drawable/nav_shared"
             android:title="@string/drawer_item_shared"
             android:visible="false"/>
-        <item
-            android:id="@+id/nav_on_device"
-            android:icon="@drawable/nav_on_device"
-            android:orderInCategory="0"
-            android:title="@string/drawer_item_on_device"/>
         <item
             android:id="@+id/nav_recently_added"
             android:icon="@drawable/nav_recently"
