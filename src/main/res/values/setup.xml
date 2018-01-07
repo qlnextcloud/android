@@ -136,6 +136,10 @@
 
     <!-- Determine is participate enabled -->
     <bool name="participate_enabled">false</bool>
+
+    <!-- Determine is notifications Activity enabled -->
+    <bool name="notifications_activity_enabled">false</bool>
+
     <!-- Participate links -->
     <string name="fdroid_beta_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.android.beta</string>
     <string name="beta_apk_link" translatable="false">https://download.nextcloud.com/android/dev/latest.apk</string>
