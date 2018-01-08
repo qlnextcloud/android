@@ -124,6 +124,7 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import java.net.URLDecoder;
 import java.security.cert.X509Certificate;
@@ -319,6 +320,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             });
 
+            findViewById(R.id.scanBtn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivityForResult(new Intent(AuthenticatorActivity.this, CaptureActivity.class), 0);
+                }
+            });
             /// initialize block to be moved to single Fragment to check server and get info about it
 
             /// initialize block to be moved to single Fragment to retrieve and validate credentials
@@ -2350,5 +2357,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     public void doNegativeAuthenticatioDialogClick() {
         mIsFirstAuthAttempt = true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            String result = data.getExtras().getString("result");
+            mHostUrlInput.setText(result);
+            if (!webViewLoginMethod && mHostUrlInput.getText() != null && mHostUrlInput.getText().length() > 0) {
+                checkOcServer();
+            }
+        }
     }
 }
