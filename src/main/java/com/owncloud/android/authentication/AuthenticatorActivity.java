@@ -345,8 +345,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             findViewById(R.id.scanBtn).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    startActivityForResult(new Intent(AuthenticatorActivity.this, CaptureActivity.class),0);
+                    // 版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        // 检查该权限是否已经获取
+                        int i = ContextCompat.checkSelfPermission(AuthenticatorActivity.this, permissions[0]);
+                        // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
+                        if (i != PackageManager.PERMISSION_GRANTED) {
+                            // 如果没有授予该权限，就去提示用户请求
+                            showDialogTipUserRequestPermission();
+                        }else{
+                            startActivityForResult(new Intent(AuthenticatorActivity.this, CaptureActivity.class),0);
+                        }
+                    }
 
                     //  startActivityForResult(new Intent(AuthenticatorActivity.this, CaptureActivity.class), 0);
                 }
@@ -2428,7 +2438,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+//                        finish();
                     }
                 }).setCancelable(false).show();
     }
@@ -2445,14 +2455,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (requestCode == 321) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    // 判断用户是否 点击了不再提醒。(检测该权限是否还可以申请)
+//                     判断用户是否 点击了不再提醒。(检测该权限是否还可以申请)
                     boolean b = shouldShowRequestPermissionRationale(permissions[0]);
                     if (!b) {
                         // 用户还是想用我的 APP 的
                         // 提示用户去应用设置界面手动开启权限
                         showDialogTipUserGoToAppSettting();
-                    } else
-                        finish();
+                    }
+//                    else
+//                        finish();
                 } else {
                     Toast.makeText(this, R.string.success_to_obtain_permission, Toast.LENGTH_SHORT).show();
                 }
@@ -2476,7 +2487,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+//                        finish();
                     }
                 }).setCancelable(false).show();
     }
