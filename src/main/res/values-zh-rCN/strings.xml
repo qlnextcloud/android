@@ -690,4 +690,9 @@
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于过期的登录会话，没有推送通知。 请考虑重新添加您的帐户。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
+    <string name="turn_on_permission_prompts">请在-应用设置-权限-中，允许MicroCloud使用相机权限来使用扫一扫功能。</string>
+    <string name="turn_on">立即开启</string>
+    <string name="apply_to_turn_on_camera_permissions">申请开启相机权限</string>
+    <string name="success_to_obtain_permission">权限获取成功</string>
+    <string name="need_permission_prompts">由于Microcloud需要获取相机权限；否则，您将无法正常使用扫一扫功能</string>
 </resources>

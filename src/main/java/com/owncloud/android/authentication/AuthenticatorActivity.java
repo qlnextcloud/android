@@ -260,7 +260,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean forceOldLoginMethod = false;
 
 
-    // ÒªÉêÇëµÄÈ¨ÏŞ
+    // è¦ç”³è¯·çš„æƒé™
      private String[] permissions = {Manifest.permission.CAMERA};
      private AlertDialog dialog;
     /**
@@ -312,13 +312,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         /// load user interface
         if (!webViewLoginMethod) {
             setContentView(R.layout.account_setup);
-            // °æ±¾ÅĞ¶Ï¡£µ±ÊÖ»úÏµÍ³´óÓÚ 23 Ê±£¬²ÅÓĞ±ØÒªÈ¥ÅĞ¶ÏÈ¨ÏŞÊÇ·ñ»ñÈ¡
+            // ç‰ˆæœ¬åˆ¤æ–­ã€‚å½“æ‰‹æœºç³»ç»Ÿå¤§äº 23 æ—¶ï¼Œæ‰æœ‰å¿…è¦å»åˆ¤æ–­æƒé™æ˜¯å¦è·å–
                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    // ¼ì²é¸ÃÈ¨ÏŞÊÇ·ñÒÑ¾­»ñÈ¡
+                // æ£€æŸ¥è¯¥æƒé™æ˜¯å¦å·²ç»è·å–
                     int i = ContextCompat.checkSelfPermission(this, permissions[0]);
-                    // È¨ÏŞÊÇ·ñÒÑ¾­ ÊÚÈ¨ GRANTED---ÊÚÈ¨  DINIED---¾Ü¾ø
+                // æƒé™æ˜¯å¦å·²ç» æˆæƒ GRANTED---æˆæƒ  DINIED---æ‹’ç»
                      if (i != PackageManager.PERMISSION_GRANTED) {
-                         // Èç¹ûÃ»ÓĞÊÚÓè¸ÃÈ¨ÏŞ£¬¾ÍÈ¥ÌáÊ¾ÓÃ»§ÇëÇó
+                    // å¦‚æœæ²¡æœ‰æˆäºˆè¯¥æƒé™ï¼Œå°±å»æç¤ºç”¨æˆ·è¯·æ±‚
                          showDialogTipUserRequestPermission();
                     }
                 }
@@ -2390,17 +2390,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 123) {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            // ¼ì²é¸ÃÈ¨ÏŞÊÇ·ñÒÑ¾­»ñÈ¡
+                // æ£€æŸ¥è¯¥æƒé™æ˜¯å¦å·²ç»è·å–
                 int i = ContextCompat.checkSelfPermission(this, permissions[0]);
-                // È¨ÏŞÊÇ·ñÒÑ¾­ ÊÚÈ¨ GRANTED---ÊÚÈ¨  DINIED---¾Ü¾ø
+                // æƒé™æ˜¯å¦å·²ç» æˆæƒ GRANTED---æˆæƒ  DINIED---æ‹’ç»
                 if (i != PackageManager.PERMISSION_GRANTED) {
-                    // ÌáÊ¾ÓÃ»§Ó¦¸ÃÈ¥Ó¦ÓÃÉèÖÃ½çÃæÊÖ¶¯¿ªÆôÈ¨ÏŞ
+                    // æç¤ºç”¨æˆ·åº”è¯¥å»åº”ç”¨è®¾ç½®ç•Œé¢æ‰‹åŠ¨å¼€å¯æƒé™
                    showDialogTipUserGoToAppSettting();
                 } else {
                     if (dialog != null && dialog.isShowing()) {
                         dialog.dismiss();
                     }
-                    Toast.makeText(this, "È¨ÏŞ»ñÈ¡³É¹¦", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.success_to_obtain_permission, Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -2413,75 +2413,75 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    // ÌáÊ¾ÓÃ»§¸ÃÇëÇóÈ¨ÏŞµÄµ¯³ö¿ò
+    // æç¤ºç”¨æˆ·è¯¥è¯·æ±‚æƒé™çš„å¼¹å‡ºæ¡†
     private void showDialogTipUserRequestPermission() {
 
         new AlertDialog.Builder(this)
-        .setTitle("ÉêÇë¿ªÆôÏà»úÈ¨ÏŞ")
-        .setMessage("ÓÉÓÚMicrocloudĞèÒª»ñÈ¡Ïà»úÈ¨ÏŞ£»\n·ñÔò£¬Äú½«ÎŞ·¨Õı³£Ê¹ÓÃÉ¨Ò»É¨¹¦ÄÜ")
-        .setPositiveButton("Á¢¼´¿ªÆô", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startRequestPermission();
-            }
-        })
-        .setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        }).setCancelable(false).show();
+                .setTitle(R.string.apply_to_turn_on_camera_permissions)
+                .setMessage(R.string.need_permission_prompts)
+                .setPositiveButton(R.string.turn_on, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startRequestPermission();
+                    }
+                })
+                .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).setCancelable(false).show();
     }
 
-    // ¿ªÊ¼Ìá½»ÇëÇóÈ¨ÏŞ
+    // å¼€å§‹æäº¤è¯·æ±‚æƒé™
     private void startRequestPermission() {
         ActivityCompat.requestPermissions(this, permissions, 321);
     }
 
-    // ÓÃ»§È¨ÏŞ ÉêÇë µÄ»Øµ÷·½·¨
+    // ç”¨æˆ·æƒé™ ç”³è¯· çš„å›è°ƒæ–¹æ³•
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 321) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    // ÅĞ¶ÏÓÃ»§ÊÇ·ñ µã»÷ÁË²»ÔÙÌáĞÑ¡£(¼ì²â¸ÃÈ¨ÏŞÊÇ·ñ»¹¿ÉÒÔÉêÇë)
+                    // åˆ¤æ–­ç”¨æˆ·æ˜¯å¦ ç‚¹å‡»äº†ä¸å†æé†’ã€‚(æ£€æµ‹è¯¥æƒé™æ˜¯å¦è¿˜å¯ä»¥ç”³è¯·)
                     boolean b = shouldShowRequestPermissionRationale(permissions[0]);
                     if (!b) {
-                        // ÓÃ»§»¹ÊÇÏëÓÃÎÒµÄ APP µÄ
-                        // ÌáÊ¾ÓÃ»§È¥Ó¦ÓÃÉèÖÃ½çÃæÊÖ¶¯¿ªÆôÈ¨ÏŞ
+                        // ç”¨æˆ·è¿˜æ˜¯æƒ³ç”¨æˆ‘çš„ APP çš„
+                        // æç¤ºç”¨æˆ·å»åº”ç”¨è®¾ç½®ç•Œé¢æ‰‹åŠ¨å¼€å¯æƒé™
                         showDialogTipUserGoToAppSettting();
                     } else
                         finish();
                 } else {
-                    Toast.makeText(this, "È¨ÏŞ»ñÈ¡³É¹¦", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.success_to_obtain_permission, Toast.LENGTH_SHORT).show();
                 }
             }
         }
     }
 
-    // ÌáÊ¾ÓÃ»§È¥Ó¦ÓÃÉèÖÃ½çÃæÊÖ¶¯¿ªÆôÈ¨ÏŞ
+    // æç¤ºç”¨æˆ·å»åº”ç”¨è®¾ç½®ç•Œé¢æ‰‹åŠ¨å¼€å¯æƒé™
     private void showDialogTipUserGoToAppSettting() {
 
         dialog = new AlertDialog.Builder(this)
-        .setTitle("´æ´¢È¨ÏŞ²»¿ÉÓÃ")
-        .setMessage("ÇëÔÚ-Ó¦ÓÃÉèÖÃ-È¨ÏŞ-ÖĞ£¬ÔÊĞíÖ§¸¶±¦Ê¹ÓÃ´æ´¢È¨ÏŞÀ´±£´æÓÃ»§Êı¾İ")
-        .setPositiveButton("Á¢¼´¿ªÆô", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            // Ìø×ªµ½Ó¦ÓÃÉèÖÃ½çÃæ
-            goToAppSetting();
-            }
-        })
-        .setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            finish();
-            }
-        }).setCancelable(false).show();
+                .setTitle(R.string.apply_to_turn_on_camera_permissions)
+                .setMessage(R.string.turn_on_permission_prompts)
+                .setPositiveButton(R.string.turn_on, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // è·³è½¬åˆ°åº”ç”¨è®¾ç½®ç•Œé¢
+                        goToAppSetting();
+                    }
+                })
+                .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).setCancelable(false).show();
     }
 
-    // Ìø×ªµ½µ±Ç°Ó¦ÓÃµÄÉèÖÃ½çÃæ
+    // è·³è½¬åˆ°å½“å‰åº”ç”¨çš„è®¾ç½®ç•Œé¢
     private void goToAppSetting() {
         Intent intent = new Intent();
 
